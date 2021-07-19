@@ -22,9 +22,9 @@ main_url = 'https://api.visitkorea.or.kr/search/commonList.do'
 driver.get(main_url)
 # 관광지 typeid_12
 # 음식점 typeid_39
-
+# 레포츠 typeid_28
 driver.find_element_by_id('contenttypeidAll').click()
-driver.find_element_by_id('typeid_39').click()
+driver.find_element_by_id('typeid_28').click()
 
 # 지역선택
 time.sleep(0.5)
@@ -39,9 +39,10 @@ Select(driver.find_element_by_xpath('//*[@id="selectDiv"]/table/tbody/tr[3]/td/s
 # 검색버튼 클릭
 driver.find_element_by_id('search').click()
 
-# 50개씩 보기
+# 관광 음식점 50개씩
+# 레포츠 숙박 20개씩
 driver.find_element_by_id('numOfPage').click()
-Select(driver.find_element_by_id('numOfPage')).select_by_value('50')
+Select(driver.find_element_by_id('numOfPage')).select_by_value('20')
 driver.find_element_by_id('numOfPageView').click()
 
 # 보기 버튼 클릭
@@ -52,12 +53,18 @@ driver.find_element_by_id('AllView').click()
 # driver.find_element_by_id('detail').click()
 
 # 이미지 크롤링
-f = open("강릉음식점썸네일" + ".csv", "w", encoding="ANSI")
+f = open("강릉레포츠썸네일" + ".csv", "w", encoding="ANSI")
 f.write("TRIP_THUMB" + "\n")
-for x in range(50):
+for x in range(20):
     imgurl = driver.find_element_by_xpath("//*[@id='content']/div[2]/ul/li[{}]/div[1]/p/img".format(x + 1)).get_attribute('src')
-    print(imgurl)
-    f.write(imgurl + "\n")
+    if imgurl != 'https://api.visitkorea.or.kr/static/images/common/noImage.gif':
+        print(imgurl)
+        f.write(imgurl + "\n")
+    elif imgurl == 'https://api.visitkorea.or.kr/static/images/common/noImage.gif':
+        imgurl = "noImage"
+        print(imgurl)
+        f.write(imgurl + "\n")
+
 # //*[@id="content"]/div[2]/ul/li[1]/div[1]/p/img 1번사진
 # //*[@id="content"]/div[2]/ul/li[2]/div[1]/p/img 2번 사진
 
