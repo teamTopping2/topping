@@ -21,8 +21,10 @@ main_url = 'https://api.visitkorea.or.kr/search/commonList.do'
 
 driver.get(main_url)
 # 관광지 typeid_12
+# 음식점 typeid_39
+
 driver.find_element_by_id('contenttypeidAll').click()
-driver.find_element_by_id('typeid_12').click()
+driver.find_element_by_id('typeid_39').click()
 
 # 지역선택
 time.sleep(0.5)
@@ -50,7 +52,7 @@ driver.find_element_by_id('AllView').click()
 # driver.find_element_by_id('detail').click()
 
 # 이미지 크롤링
-f = open("강릉썸네일" + ".csv", "w", encoding="ANSI")
+f = open("강릉음식점썸네일" + ".csv", "w", encoding="ANSI")
 f.write("TRIP_THUMB" + "\n")
 for x in range(50):
     imgurl = driver.find_element_by_xpath("//*[@id='content']/div[2]/ul/li[{}]/div[1]/p/img".format(x + 1)).get_attribute('src')
