@@ -3,3 +3,4 @@
 Servers3/*
 chromedriver.exe
 *.csv
+*/.idea/*
