@@ -4,3 +4,6 @@ Servers3/*
 chromedriver.exe
 *.csv
 */.idea/*
+firstWebProject/*
+/.metadata/
+*.sql
