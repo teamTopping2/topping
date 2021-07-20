@@ -14,7 +14,7 @@
 	rel="stylesheet"
 	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 	crossorigin="anonymous">
-<title>topp</title>
+<title></title>
 <style type="text/css">
 #topping_wrap1 {
 	width: 100%;
@@ -85,28 +85,28 @@
 			<div class="main_menu">
 				<div class="main_menu_w1230">
 					<div>
-						<a href="/topp/index.jsp" id="headerLogo"> <img
+						<a href="http://localhost:8808/topp/" id="headerLogo"> <img
 							src="/topp/resources/images/toppingLogo.png">
 						</a>
 					</div>
 					<div class="middle_area">
 
 						<ul class="menubar">
-							<li><a class="menuLink" href="/topp/views/trip/tripView.jsp">여행정보 검색</a></li>
+							<li><a class="menuLink" href="/topp/views/search/searchTrip.jsp">여행정보 검색</a></li>
 							<li><a class="menuLink" href="#">여행일기</a></li>
 							<li><a class="menuLink" href="#">트립박스</a></li>
 							<li><a class="menuLink" href="#">마이페이지</a></li>
-							<li><a class="menuLink" href="#">커뮤니티</a></li>
+							<li><a class="menuLink" href="/topp/bnlist">커뮤니티</a></li>
 						</ul>
 
 						<div>
-							<a href="/topp/index.jsp" id="serviceLogo"> <img
+							<a href="http://localhost:8808/topp/" id="serviceLogo"> <img
 								src="/topp/resources/images/toppingService.png">
 							</a>
 						</div>
 
 						<div>
-							<a href="/topp/index.jsp" id="loginLogo"> <img
+							<a href="http://localhost:8808/topp/" id="loginLogo"> <img
 								src="/topp/resources/images/toppingLogin.png">
 							</a>
 						</div>
