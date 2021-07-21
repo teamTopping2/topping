@@ -42,17 +42,19 @@ public class SearchTripServlet extends HttpServlet {
 			regName = request.getParameter("searchTrip");
 		}
 		
-		TripService tservice = new TripService();
+		TripService service = new TripService();
 
-		ArrayList<Trip> list = tservice.selectList(regName);
+		ArrayList<Trip> tlist = service.selecttList(regName);
 
+		ArrayList<Trip> slist = service.selectsList(regName);
+		
 		// 뷰 지정해서 내보내기
 		RequestDispatcher view = null;
-		if (list.size() > 0) {
+		if (tlist.size() > 0) {
 			view = request.getRequestDispatcher("views/trip/tripView.jsp");
 
-			request.setAttribute("list", list);
-
+			request.setAttribute("tlist", tlist);
+			request.setAttribute("slist", slist);
 			view.forward(request, response);
 		}
 

@@ -13,9 +13,16 @@ public class TripService {
 	
 	private TripDao tdao = new TripDao();
 	
-	public ArrayList<Trip> selectList(String regName) {
+	public ArrayList<Trip> selecttList(String regName) {
 		Connection conn = getConnection();
-		ArrayList<Trip> list = tdao.selectList(conn, regName);
+		ArrayList<Trip> list = tdao.selecttList(conn, regName);
+		close(conn);
+		return list;
+	}
+	
+	public ArrayList<Trip> selectsList(String regName) {
+		Connection conn = getConnection();
+		ArrayList<Trip> list = tdao.selectsList(conn, regName);
 		close(conn);
 		return list;
 	}

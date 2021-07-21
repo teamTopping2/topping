@@ -92,9 +92,9 @@
 					<div class="middle_area">
 
 						<ul class="menubar">
-							<li><a class="menuLink" href="/topp/views/search/searchTrip.jsp">여행정보 검색</a></li>
+							<li><a class="menuLink" href="/topp/views/trip/tripView.jsp">여행정보 검색</a></li>
 							<li><a class="menuLink" href="#">여행일기</a></li>
-							<li><a class="menuLink" href="#">트립박스</a></li>
+							<li><a class="menuLink" href="/topp/views/tripBox/tripBoxView.jsp">트립박스</a></li>
 							<li><a class="menuLink" href="#">마이페이지</a></li>
 							<li><a class="menuLink" href="/topp/bnlist">커뮤니티</a></li>
 						</ul>

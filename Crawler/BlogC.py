@@ -14,12 +14,12 @@ sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding='utf-8')
 
 sname = input("여행지를 입력해주세요: ")
 if(os.path.isfile(sname + ".csv")):
-    f = open(sname + ".csv","a", encoding="ANSI")
+    f = open(sname + ".csv","a", encoding="utf-8-sig")
     print("기존 파일에 추가합니다.")
 else:
-    f = open(sname + ".csv","w", encoding="ANSI")
+    f = open(sname + ".csv","w", encoding="utf-8-sig")
     #헤더 추가
-    f.write("블로그 제목, 썸네일, 링크\n")
+    f.write("블로그 제목, 블로그 이름, 썸네일, 링크\n")
     print(sname + ".csv 파일이 생성되었습니다.")
 
 options = wd.ChromeOptions()
@@ -38,12 +38,15 @@ for x in range(10):
     main_url = f"https://search.naver.com/search.naver?where=blog&query={sname}&sm=tab_opt&nso=so%3Ar%2Cp%3A1y"
     driver.get(main_url)
     title = driver.find_element_by_xpath("//*[@id='sp_blog_{}']/div/div/a".format(x+1)).text
+    name = driver.find_element_by_xpath('//*[@id="sp_blog_{}"]/div/div/div[1]/div[2]/span/span/span[2]/a'.format(x+1)).text
     imgurl = driver.find_element_by_xpath("//*[@id='sp_blog_{}']/div/a/span/img".format(x+1)).get_attribute('src')
     link = driver.find_element_by_xpath("//*[@id='sp_blog_{}']/div/div/a".format(x+1)).get_attribute("href")
     title = title.replace(","," ")
+    name = name.replace(",", " ")
 
     #출력
     print("\n\n{}.".format(x + 1) + title)
+    print("블로그 이름 : " + name)
     print("썸네일 : " + imgurl)
     print("블로그 링크 : " + link)
 
@@ -62,7 +65,7 @@ for x in range(10):
     # 블로그 제목: ooo , 링크 : oooo.com , 담겨있는 코스정보 : #ooo #ooo
 
     # 크롤링 데이터 추가
-    f.write(title + ", " + imgurl + ", " + link + "\n")
+    f.write(title + ", " + name + ", " + imgurl + ", " + link + "\n")
 
 et = time.time()
 print(f"블로그 크롤링 시간 : {et-st:.2f}초")

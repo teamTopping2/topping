@@ -19,6 +19,29 @@ public class Trip implements java.io.Serializable{
 	private Double longitude;
 	private String tripContent;
 
+//	BLOG_NO
+//	B_TITLE
+//	B_NAME
+//	B_THUMB
+//	B_LINK
+	
+	private String blogNo;
+	private String blogTitle;
+	private String blogName;
+	private String blogThumb;
+	private String blogLink;
+	
+	//SNS용 객체
+	public Trip(String blogNo, String blogTitle, String blogName, String blogThumb, String blogLink) {
+		super();
+		this.blogNo = blogNo;
+		this.blogTitle = blogTitle;
+		this.blogName = blogName;
+		this.blogThumb = blogThumb;
+		this.blogLink = blogLink;
+	}
+	
+	//Trip용 객체
 	public Trip() {
 		
 	}
@@ -99,10 +122,53 @@ public class Trip implements java.io.Serializable{
 		this.tripContent = tripContent;
 	}
 
+	
+	public String getBlogNo() {
+		return blogNo;
+	}
+
+	public void setBlogNo(String blogNo) {
+		this.blogNo = blogNo;
+	}
+
+	public String getBlogTitle() {
+		return blogTitle;
+	}
+
+	public void setBlogTitle(String blogTitle) {
+		this.blogTitle = blogTitle;
+	}
+
+	public String getBlogName() {
+		return blogName;
+	}
+
+	public void setBlogName(String blogName) {
+		this.blogName = blogName;
+	}
+
+	public String getBlogThumb() {
+		return blogThumb;
+	}
+
+	public void setBlogThumb(String blogThumb) {
+		this.blogThumb = blogThumb;
+	}
+
+	public String getBlogLink() {
+		return blogLink;
+	}
+
+	public void setBlogLink(String blogLink) {
+		this.blogLink = blogLink;
+	}
+
 	@Override
 	public String toString() {
 		return "Trip [tripNo=" + tripNo + ", tripName=" + tripName + ", tripThumb=" + tripThumb + ", address=" + address
-				+ ", latitude=" + latitude + ", longitude=" + longitude + ", tripContent=" + tripContent + "]";
+				+ ", latitude=" + latitude + ", longitude=" + longitude + ", tripContent=" + tripContent + ", blogNo="
+				+ blogNo + ", blogTitle=" + blogTitle + ", blogName=" + blogName + ", blogThumb=" + blogThumb
+				+ ", blogLink=" + blogLink + "]";
 	}
 	
 }
