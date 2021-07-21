@@ -184,6 +184,46 @@ public class BoardQuesDao {
 		return result;
 	} // addRepCount
 	
+	public ArrayList<BoardQues> selectSearchType(Connection conn, String bqType) {
+		ArrayList<BoardQues> list = new ArrayList<BoardQues>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String query = "select * from tb_board_ques where bq_type = ?";
+		
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, bqType);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				BoardQues bques = new BoardQues();
+				
+				bques.setBqNo(rset.getInt("bq_no"));
+				bques.setBqType(rset.getString("bq_type"));
+				bques.setBqTitle(rset.getString("bq_title"));
+				bques.setBqWriter(rset.getString("bq_writer"));
+				bques.setBqContent(rset.getNString("bq_content"));
+				bques.setBqDate(rset.getDate("bq_date"));
+				bques.setOrgFilename(rset.getString("org_filename"));
+				bques.setReFilename(rset.getString("re_filename"));
+				bques.setBqView(rset.getInt("bq_view"));
+				bques.setBqLike(rset.getInt("bq_like"));
+				bques.setRepCount(rset.getInt("rep_count"));
+				
+				list.add(bques);
+				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return list;
+	} // selectSearchType
+	
 	public ArrayList<BoardQues> selectSearchTitle(Connection conn, String keyword) {
 		ArrayList<BoardQues> list = new ArrayList<BoardQues>();
 		PreparedStatement pstmt = null;
@@ -308,7 +348,7 @@ public class BoardQuesDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "insert into tb_board_ques values (bq_seq.nextval, ?, ?, ?, ?, default, ?, ?, default, default, default)";
+		String query = "insert into tb_board_ques values ((select max(bq_no) + 1 from tb_board_ques), ?, ?, ?, ?, default, ?, ?, default, default, default)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);

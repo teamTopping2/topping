@@ -257,7 +257,7 @@ public class BoardNoticeDao {
 		int result = 0;
 		PreparedStatement pstmt = null;
 		
-		String query = "insert into tb_board_notice values (bn_seq.nextval, ?, ?, ?, default, ?, ?, default, default)";
+		String query = "insert into tb_board_notice values ((select max(bn_no) + 1 from tb_board_notice), ?, ?, ?, default, ?, ?, default, default)";
 		
 		try {
 			pstmt = conn.prepareStatement(query);

@@ -47,11 +47,24 @@ function writeForm(){
 	<br><br>
 
 	<table align="center" border="1" cellspacing="0" cellpadding="5" width="900">
-		<tr><th>글 번호</th><th>제목</th><th>작성자</th><th>작성날짜</th><th>첨부파일</th><th>조회수</th></tr>
+		<tr><th>글 번호</th><th>카테고리</th><th>제목</th><th>작성자</th><th>작성날짜</th><th>첨부파일</th><th>조회수</th></tr>
 	
 		<% for (BoardQues b : list) { %>
 			<tr>
 				<th><%= b.getBqNo() %></th>
+				<td>
+				<% if(b.getBqType().equals("food")) { %>
+					맛집
+				<% } else if (b.getBqType().equals("hotel")) { %>
+					숙소
+				<% } else if(b.getBqType().equals("transport")) { %>
+					교통
+				<% } else if(b.getBqType().equals("accompany")) { %>
+					동행
+				<% } else if(b.getBqType().equals("etc")) { %>
+					기타
+				<% } %>
+				</td>
 				<td>
 					<a href="/topp/bqdetail?bqNo=<%= b.getBqNo() %>&page=<%= currentPage %>"><%= b.getBqTitle() %></a>
 				</td>

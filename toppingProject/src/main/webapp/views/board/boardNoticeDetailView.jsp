@@ -43,12 +43,18 @@ function writeForm(){
 	<button onclick="writeForm();">글쓰기</button>
 	
 	<table  align="center" width="900" border="1" cellspacing="0" cellpadding="5">
-	<tr><th><%= bnotice.getBnTitle() %></th></tr>
-	<tr><td><%= bnotice.getBnWriter() %> &nbsp;&nbsp; <%= bnotice.getBnDate() %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= bnotice.getBnView() %></td></tr>
-	<tr><td><%= bnotice.getBnContent() %></td></tr>
-	</table>
+	<tr><th colspan="4"><%= bnotice.getBnTitle() %></th></tr>
+	<tr><td colspan="4"><%= bnotice.getBnWriter() %> &nbsp;&nbsp; <%= bnotice.getBnDate() %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= bnotice.getBnView() %></td></tr>
+	<tr><td colspan="4"><%= bnotice.getBnContent() %></td></tr>
+	<tr><td colspan="4">
+		<% if(bnotice.getOrgFilename() != null) { %>
+			<a href="/topp/bnfdown?ofile=<%= bnotice.getOrgFilename() %>&rfile=<%= bnotice.getReFilename() %>">
+			<%= bnotice.getOrgFilename() %></a>
+		<% } else { %>
+			&nbsp;
+		<% } %>
+	</td></tr>
 	
-	<table  align="center" width="900" border="1" cellspacing="0" cellpadding="5">
 	<% for (BoardNoticeReply bnr : list) { %>
 			<tr>
 				<th><%= bnr.getComNo() %></th>

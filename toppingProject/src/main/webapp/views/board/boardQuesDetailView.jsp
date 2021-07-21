@@ -47,10 +47,19 @@ function writeForm(){
 	<tr><td colspan="4"><%= bques.getBqWriter() %> &nbsp; <%= bques.getBqDate() %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= bques.getBqView() %></td></tr>
 	<tr><td colspan="4"><%= bques.getBqContent() %></td></tr>
 	<tr><td colspan="4">
+		<% if(bques.getOrgFilename() != null) { %>
+			<a href="/topp/bqfdown?ofile=<%= bques.getOrgFilename() %>&rfile=<%= bques.getReFilename() %>">
+			<%= bques.getOrgFilename() %></a>
+		<% } else { %>
+			&nbsp;
+		<% } %>
+	</td></tr>
+	<tr><td colspan="4">
 		<button>좋아요</button> &nbsp;
 		<button>신고</button> &nbsp;
 		<button onclick="javascript:location.href='/topp/bqlist?page=<%= currentPage %>'">목록으로</button>
 	</td></tr>
+	
 	<% for (BoardQuesReply bqr : list) { %>
 			<tr>
 				<td><%= bqr.getComNo() %></td>

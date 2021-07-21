@@ -74,6 +74,14 @@ public class BoardQuesService {
 		close(conn);
 	}
 	
+	public ArrayList<BoardQues> selectSearchType(String bqType) {
+		Connection conn = getConnection();
+		ArrayList<BoardQues> list = bqdao.selectSearchType(conn, bqType);
+		close(conn);
+		
+		return list;
+	}
+	
 	public ArrayList<BoardQues> selectSearchTitle(String bqTitle) {
 		Connection conn = getConnection();
 		ArrayList<BoardQues> list = bqdao.selectSearchTitle(conn, bqTitle);

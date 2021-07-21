@@ -11,18 +11,29 @@ function writeBoard() {
 	var boardtype = document.getElementById("boardtype").value;
 
 	if (boardtype == "notice") {
-		$("boardinsert").attr("action", '/topp/bninsert');
+		document.getElementById("boardinsert").setAttribute('action', '/topp/bninsert');
 	}
 
 	if (boardtype == "ques") {
-		location.href = "/topp/bqinsert";
+		document.getElementById("boardinsert").setAttribute('action', '/topp/bqinsert');
 	}
 
 	if (boardtype == "free") {
-		location.href = "/topp/bfinsert";
+		document.getElementById("boardinsert").setAttribute('action', '/topp/bfinsert');
 	}
 	
 } // writeBoard
+
+function chooseType() {
+	var boardtype = document.getElementById("boardtype").value;
+
+	if (boardtype != "notice") {
+		document.getElementById("type").disabled = false;
+	}
+	
+}
+
+
 </script>
 </head>
 
@@ -48,25 +59,25 @@ function writeBoard() {
 <form method="post" enctype="multipart/form-data" id="boardinsert">
 <table align="center" width="900" cellspacing="0" cellpadding="5">
 <tr><td>
-	<select name="boardtype" id="boardtype">
+	<select name="boardtype" id="boardtype" onchange=" return chooseType();">
 		<option value="notice">공지 게시판</option>
 		<option value="ques">질문 게시판</option>
 		<option value="free">자유 게시판</option>
 	</select> &nbsp;
 	
-	<select name="type" id="type">
-		<option>맛집</option>
-		<option>숙소</option>
-		<option>교통</option>
-		<option>동행</option>
-		<option selected>기타</option>
+	<select name="type" id="type" disabled>
+		<option value="food">맛집</option>
+		<option value="hotel">숙소</option>
+		<option value="transport">교통</option>
+		<option value="accompany">동행</option>
+		<option value="etc" selected>기타</option>
 	</select>
 </td></tr>
 <tr>
 	<td><input type="text" name="title" size="70" placeholder="제목을 입력하세요."></td>
 </tr>
 <tr>
-	<td><input type="text" name="writer" readonly value="작성자 닉네임"></td>
+	<td><input type="text" name="writer"  readonly placeholder="작성자 닉네임"></td>
 </tr>
 <tr>
 	<td><input type="file" name="upfile"></td>
