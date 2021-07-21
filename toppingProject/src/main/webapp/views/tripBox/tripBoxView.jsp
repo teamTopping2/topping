@@ -37,7 +37,7 @@
 }
 
 .box_contents {
-	margin-left: 70px;
+	
 }
 
 .box_header {
@@ -49,8 +49,17 @@
 	border-radius: 5px;
 	background-color: WhiteSmoke;
 	margin-top: 20px;
-	width: 800px;
+	width: 900px;
 	height: 50px;
+}
+
+.box_none {
+	border: solid 1px Gainsboro;
+	border-radius: 5px;
+	background-color: WhiteSmoke;
+	margin-top: 20px;
+	width: 900px;
+	height: 60px;
 }
 
 .b_count {
@@ -60,7 +69,25 @@
 	color: rgb(127, 127, 127);
 }
 
+.table {
+	margin-top: 50px;
+}
 
+.btn_delete {
+	width: 100px;
+	height: 35px;
+	background-color: white;
+	border-color: Gainsboro;
+}
+
+.btn_share {
+	width: 100px;
+	height: 35px;
+	border: 0;
+	background-color: DeepSkyBlue;
+	color: white;
+	float: right;
+}
 </style>
 </head>
 <body>
@@ -81,8 +108,40 @@
 					</div>
 				</div>
 			</div>
+			<div class="box_main">
+				<div class="box_drop"></div>
+				<div>
+					<table class="table table-bordered">
+						<thead class="table-light">
+							<tr>
+								<th scope="col"><input type="checkbox"></th>
+								<th scope="col">번호</th>
+								<th scope="col">계획명</th>
+								<th scope="col">여행경로</th>
+								<th scope="col">지역</th>
+							</tr>
+						</thead>
+						<tbody>
+							<%--  <% for(Box b : blist) %> --%>
+							<tr>
+							</tr>
+						</tbody>
+					</table>
+					<!--<tr>
+							<th scope="row"><input type="checkbox"></th>
+							<td>Jacob</td>
+							<td>Thornton</td>
+							<td>@fat</td>
+						</tr>-->
+					<h5 style="text-align: center;">보관함에 여행정보가 없습니다.</h5>
+					<div class="box_none"></div>
+					<div style="margin-top: 10px;">
+						<button class="btn_delete" onclick="btn_selectD">선택삭제</button>
+						<button class="btn_share" onclick="btn_share">공유하기</button>
+					</div>
+				</div>
+			</div>
 		</div>
-
 		<br>
 		<br>
 		<br>

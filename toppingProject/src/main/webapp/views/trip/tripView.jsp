@@ -51,7 +51,7 @@ ArrayList<Trip> slist = (ArrayList<Trip>) request.getAttribute("slist");
 .searchBar {
 	display: inline-block;
 	margin-top: 40px;
-	margin-bottom: 20px;
+	margin-bottom: 5px;
 	border: 1px solid LightCoral;
 	border-radius: 5px;
 }
@@ -66,39 +66,51 @@ input:focus {
 	border: 0;
 }
 
+input[type=checkbox] {
+	margin-right: 7px;
+}
+
 label {
 	display: inline-block;
 	width: 80px;
+	margin-left: 5px;
 	line-height: 25px;
 }
 
 .searchView {
 	display: inline-block;
-	width: 1230px;
-	margin-right: 80px;
+	width: 1300px;
+	margin-right: 60px;
 	margin-top: 40px;
+	padding: 20px;
+	border-color: LightGrey;
+	border-style: double;
 }
 
-.bx {
+.bbx {
 	list-style: none;
+	width: 580px;
+}
+
+.tbx {
+	list-style: none;
+	width: 590px;
 }
 
 .searchbTitle {
-	margin-left: 50px;
 	float: left;
 	width: 580px;
 }
 
 .searchtTitle {
-	margin-left: 30px;
+	margin-left: 100px;
 	width: 500px;
 	float: left;
 }
 
 .blog_main {
 	overflow: auto;
-	margin-left: 50px;
-	width: 580px;
+	width: 600px;
 	height: 800px;
 	float: left;
 }
@@ -119,6 +131,10 @@ label {
 	border: 1px solid grey;
 }
 
+.blog_list_total {
+	padding: 0;
+}
+
 .trip_list_total {
 	padding: 0;
 }
@@ -126,10 +142,9 @@ label {
 .trip_main {
 	overflow: auto;
 	margin-left: 30px;
-	width: 500px;
+	width: 610px;
 	height: 800px;
 	float: left;
-	border-left: solid 2px PapayaWhip;
 }
 
 .trip_main::-webkit-scrollbar {
@@ -159,16 +174,32 @@ label {
 
 .trip_thumb {
 	width: 165px;
+	height: 110px;
 	margin-right: 10px;
 	border-bottom-left-radius: 5px;
 	border-bottom-right-radius: 5px;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
+	margin-right: 10px;
+}
+
+.blog_title {
+	width: 310px;
+}
+
+.trip_title {
+	width: 300px;
+}
+
+.trip_content {
+	width: 300px;
+	height: 80px;
+	line-height: 26px;
+	overflow: hidden;
 }
 
 .blog_box {
-	margin-left: 30px;
-	margin-right: 10px;
+	margin: 0;
 	display: flex;
 	padding-top: 10px;
 	padding-left: 15px;
@@ -178,6 +209,7 @@ label {
 	padding-bottom: 10px;
 	white-space: normal;
 	overflow: hidden;
+	width: 580px;
 	height: 145px;
 }
 
@@ -199,47 +231,37 @@ label {
 	padding-top: 15px;
 }
 
+.btn_scrap {
+	background-color: white;
+	height: 24px;
+	border: 0;
+}
+
+.btn_scrap:hover {
+	color: red;
+	transition: all 0.4s;
+}
+
 #quick_menu2 {
 	position: absolute;
 	left: 0;
 	right: 0;
 	top: 268px;
 	z-index: 9999;
-	min-width: 1010px;
+	min-width: 1420px;
 	height: 0;
 	background-color: transparent;
-}
-
-#quick_menu2 .quick_label {
-	font-size: 0;
-	color: transparent;
-	position: absolute;
-	visibility: hidden;
 }
 
 #quick_menu2 .quick_contents {
 	position: absolute;
 	top: 50px;
-	right: 40px;
-	/* left: 50%;
-	margin-left: 500px; */
+	right: 20px;
 	width: 63px;
 }
 
 #quick_menu2 .btn_quick_top {
 	margin-bottom: 2px;
-}
-
-#quick_menu2 .btn_quick_top a {
-	display: block;
-	height: 34px;
-	font-size: 0;
-	color: transparent;
-	border: 1px solid #d2d2d2;
-	background: #f9f9f9
-		url('http://image.kyobobook.co.kr/ink/images/gnb/nav6_btn_sprite.png')
-		no-repeat 22px -108px;
-	transition: all 0.2s;
 }
 
 #quick_menu2 .btn_quick_top a:hover {
@@ -257,7 +279,6 @@ label {
 	top: auto;
 	bottom: 0;
 }
-
 </style>
 
 <script type="text/javascript">
@@ -332,22 +353,23 @@ label {
 					<input id="searchText" type="text" name="searchTrip"
 						placeholder="   여행가고 싶은 곳을 입력해주세요." onfocus="this.placeholder=''"
 						onblur="this.placeholder='   여행가고 싶은 곳을 입력해주세요.'" size="50"
-						style="border: 0;">
+						style="border: 0; width: 500px; height: 33px;">
 					<button class="btn_search_submit" type="submit" onclick="search">
 						<i class="bi bi-search" style="font-size: 1.5rem"></i>
 					</button>
 				</div>
+				<h6 style="width: 500px; text-align: left; margin: 0 auto; margin-bottom: 30px; color: LightSkyBlue"><b>#강릉 &nbsp; #제주 &nbsp; #여수</b></h6>
 				<!-- 카테고리 체크박스 -->
 				<div class="searchChk">
-					<h5 style="display: inline-block; margin-right: 10px;">상세검색</h5>
+					<h5 style="display: inline-block; margin-right: 10px; margin-left: 20px;">상세검색</h5>
 					<label><input type="checkbox" name="tripCate"
 							value="cate_01" checked="checked" onclick="getCheckboxValue()">관광지</label>
 					<label><input type="checkbox" name="tripCate"
 							value="cate_02" checked="checked" onclick="getCheckboxValue()">맛집</label>
 					<label><input type="checkbox" name="tripCate"
 							value="cate_03" checked="checked" onclick="getCheckboxValue()">액티비티</label>
-					<label><input type="checkbox" name="tripCate"
-							value="cate_04" checked="checked" onclick="getCheckboxValue()">숙박</label>
+					<label><input type="hidden" name="tripCate" value="cate_04"
+							checked="checked" onclick="getCheckboxValue()"></label>
 				</div>
 			</form>
 		</div>
@@ -368,25 +390,28 @@ label {
 			</div>
 			<!-- SNS 검색목록 -->
 			<div class="blog_main">
-				<h6 style="text-align: center;"></h6>
 				<!-- 부제목 -->
 				<%
 				for (Trip s : slist) {
 				%>
 				<ul class="blog_list_total">
-					<li class="bx" id="blog_1">
+					<li class="bbx">
 						<div class="blog_box">
 							<a class="blog_thumb" href="<%=s.getBlogLink()%>" target="_blank">
 								<img class="blog_thumb" src=<%=s.getBlogThumb()%>>
 							</a>
 							<div class="blog_conbox">
-								<div>
+								<div class="blog_title">
 									<h5>
 										<%=s.getBlogTitle()%></h5>
 								</div>
 								<div>
 									<%=s.getBlogName()%></div>
 							</div>
+							<button class="btn_scrap">
+								<i class="bi bi-pin-angle"
+									style="font-size: 1.5rem; margin-left: 10px;"></i>
+							</button>
 						</div>
 					</li>
 				</ul>
@@ -397,23 +422,26 @@ label {
 			<!-- 관광지 상세정보 목록 -->
 			<div class="trip_main">
 				<div class="trip_contents">
-					<h6 style="text-align: center;"></h6>
 					<!-- 부제목 -->
 					<%
 					for (Trip t : tlist) {
 					%>
 					<ul class="trip_list_total">
-						<li class="bx">
+						<li class="tbx">
 							<div class="trip_box cate_<%=t.getTripNo().substring(5, 7)%>">
 								<a class="trip_thumb" href="#" target="_blank"> <img
 									class="trip_thumb" src=<%=t.getTripThumb()%>>
 								</a>
 								<div class="trip_conbox">
-									<div>
+									<div class="trip_title">
 										<h5><%=t.getTripName()%></h5>
 									</div>
-									<div><%=t.getTripContent()%></div>
+									<div class="trip_content"><%=t.getTripContent()%></div>
 								</div>
+								<button class="btn_scrap">
+									<i class="bi bi-pin-angle"
+										style="font-size: 1.5rem; margin-left: 20px;"></i>
+								</button>
 							</div>
 						</li>
 					</ul>
@@ -424,11 +452,16 @@ label {
 			</div>
 		</div>
 		<div id="quick_menu2" class="fixed">
-			<div class="quick_label">바로가기</div>
 			<div class="quick_contents">
-
+				<div>
+					<a href="#Top" style="color: LightCoral;"> <i
+						class="bi bi-calendar-event"
+						style="font-size: 3rem; vertical-align: top; color: DimGray;"></i>0
+					</a>
+				</div>
 				<div class="btn_quick_top">
-					<a href="#Top">TOP</a>
+					<a href="#Top"><i class="bi bi-caret-up"
+						style="font-size: 3rem; color: DimGray;"></i></a>
 				</div>
 
 			</div>
@@ -444,6 +477,18 @@ label {
 		<%
 		}
 		%>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
 		<br>
 		<br>
 		<br>
