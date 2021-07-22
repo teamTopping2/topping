@@ -48,25 +48,25 @@ public class BoardNoticeService {
 		close(conn);
 	}
 	
-	public ArrayList<BoardNotice> selectSearchTitle(String bnTitle) {
+	public ArrayList<BoardNotice> selectSearchTitle(String bnTitle, int startRow, int endRow) {
 		Connection conn = getConnection();
-		ArrayList<BoardNotice> list = bndao.selectSearchTitle(conn, bnTitle);
+		ArrayList<BoardNotice> list = bndao.selectSearchTitle(conn, bnTitle, startRow, endRow);
 		close(conn);
 		
 		return list;
 	}
 	
-	public ArrayList<BoardNotice> selectSearchWriter(String bnWriter) {
+	public ArrayList<BoardNotice> selectSearchWriter(String bnWriter, int startRow, int endRow) {
 		Connection conn = getConnection();
-		ArrayList<BoardNotice> list = bndao.selectSearchWriter(conn, bnWriter);
+		ArrayList<BoardNotice> list = bndao.selectSearchWriter(conn, bnWriter, startRow, endRow);
 		close(conn);
 		
 		return list;
 	}
 	
-	public ArrayList<BoardNotice> selectSearchContent(String bnContent) {
+	public ArrayList<BoardNotice> selectSearchContent(String bnContent, int startRow, int endRow) {
 		Connection conn = getConnection();
-		ArrayList<BoardNotice> list = bndao.selectSearchContent(conn, bnContent);
+		ArrayList<BoardNotice> list = bndao.selectSearchContent(conn, bnContent, startRow, endRow);
 		close(conn);
 		
 		return list;

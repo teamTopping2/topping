@@ -15,12 +15,21 @@ ArrayList<BoardNoticeReply> list = (ArrayList<BoardNoticeReply>)request.getAttri
 function writeForm(){
 	location.href="/topp/views/board/boardWriteForm.jsp"
 }
+
+function moveUpview(){
+	location.href="/topp/bnupview?bnNo=<%= bnotice.getBnNo() %>&page=<%= currentPage %>";
+}
+
+function deleteBoard(){
+	location.href="/topp/bndelete?bnNo=<%= bnotice.getBnNo() %>&rfile=<%= bnotice.getReFilename() %>";
+}
 </script>
-<link rel="stylesheet" type="text/css" href="/topp/resources/css/board.css">
+<link rel="stylesheet" type="text/css" href="/topp/resources/css/boardCss.css">
 </head>
 
 <body>
 <%@ include file="../common/menubar.jsp" %>
+<br><br>
 
 <%-- 서브 메뉴바 --%>
 <div class="submenu">
@@ -36,14 +45,17 @@ function writeForm(){
 
 <%-- 본문 --%>
 <div class="board">
-	<h5>공지 게시판</h5>
+	<h3>공지 게시판</h3>
 	<hr><br>
-	<button>수정</button> &nbsp;
-	<button>삭제</button> &nbsp;
-	<button onclick="writeForm();">글쓰기</button>
+	
+	<div style="width: 950px" align="right">
+		<button onclick="moveUpview(); return false;">수정</button> &nbsp;
+		<button onclick="deleteBoard(); return false;">삭제</button> &nbsp;
+		<button onclick="writeForm(); return false;">글쓰기</button>
+	</div>
 	
 	<table  align="center" width="900" border="1" cellspacing="0" cellpadding="5">
-	<tr><th colspan="4"><%= bnotice.getBnTitle() %></th></tr>
+	<tr><th colspan="3"><%= bnotice.getBnTitle() %></th></tr>
 	<tr><td colspan="4"><%= bnotice.getBnWriter() %> &nbsp;&nbsp; <%= bnotice.getBnDate() %> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <%= bnotice.getBnView() %></td></tr>
 	<tr><td colspan="4"><%= bnotice.getBnContent() %></td></tr>
 	<tr><td colspan="4">

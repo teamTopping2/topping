@@ -19,40 +19,33 @@
 #topping_wrap1 {
 	width: 100%;
 }
-
 #topping_header {
 	width: 100%;
 }
-
 .main_menu {
 	border-bottom: 1px solid black;
 }
-
 .main_menu_w1230 {
 	width: 1230px;
 	height: 75px;
 	margin: 0 auto;
 	clear: both;
 }
-
 #headerLogo img {
 	width: 220px;
 	height: 60px;
 	margin-top: 4px;
 	float: left;
 }
-
 #serviceLogo img {
 	float: right;
 	margin-top: 12px;
 }
-
 #loginLogo img {
 	float: right;
 	margin-top: 12px;
 	margin-right: 5px;
 }
-
 .menubar {
 	width: 740px;
 	line-height: 75px;
@@ -60,19 +53,16 @@
 	margin: 0 auto;
 	float: left;
 }
-
 .menubar li {
 	list-style: none;
 	display: inline-block;
 	margin-right: 45px;
 }
-
 .middle_area {
 	display: block;
 	margin: 0;
 	padding: 0;
 }
-
 .menuLink {
 	color: black;
 }
@@ -118,9 +108,3 @@
 
 </body>
 </html>
-
-
-
-
-
-

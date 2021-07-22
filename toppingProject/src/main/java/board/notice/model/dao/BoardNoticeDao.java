@@ -139,16 +139,24 @@ public class BoardNoticeDao {
 		return result;
 	} // addReadCount
 	
-	public ArrayList<BoardNotice> selectSearchTitle(Connection conn, String keyword) {
+	public ArrayList<BoardNotice> selectSearchTitle(Connection conn, String keyword, int startRow, int endRow) {
 		ArrayList<BoardNotice> list = new ArrayList<BoardNotice>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from tb_board_notice where bn_title like ?";
+		String query = "select * "
+		+ "from (select rownum rnum, bn_no, bn_writer, bn_title, bn_content, bn_date, org_filename, re_filename, bn_view, bn_like "
+		+ "         from (select * from tb_board_notice "
+		+ "						where bn_title like ? "
+		+ "                    order by bn_no desc)) "
+		+ "where rnum between ? and ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, "%" + keyword + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -177,16 +185,24 @@ public class BoardNoticeDao {
 		return list;
 	} // selectSearchTitle
 	
-	public ArrayList<BoardNotice> selectSearchWriter(Connection conn, String bnWriter) {
+	public ArrayList<BoardNotice> selectSearchWriter(Connection conn, String bnWriter, int startRow, int endRow) {
 		ArrayList<BoardNotice> list = new ArrayList<BoardNotice>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from tb_board_notice where bn_writer like ?";
+		String query = "select * "
+				+ "from (select rownum rnum, bn_no, bn_writer, bn_title, bn_content, bn_date, org_filename, re_filename, bn_view, bn_like "
+				+ "         from (select * from tb_board_notice "
+				+ "						where bn_writer like ? "
+				+ "                    order by bn_no desc)) "
+				+ "where rnum between ? and ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, "%" + bnWriter + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
@@ -215,16 +231,24 @@ public class BoardNoticeDao {
 		return list;
 	} // selectSearchWriter
 	
-	public ArrayList<BoardNotice> selectSearchContent(Connection conn, String bnContent) {
+	public ArrayList<BoardNotice> selectSearchContent(Connection conn, String bnContent, int startRow, int endRow) {
 		ArrayList<BoardNotice> list = new ArrayList<BoardNotice>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		
-		String query = "select * from tb_board_notice where bn_content like ?";
+		String query = "select * "
+				+ "from (select rownum rnum, bn_no, bn_writer, bn_title, bn_content, bn_date, org_filename, re_filename, bn_view, bn_like "
+				+ "         from (select * from tb_board_notice "
+				+ "						where bn_content like ? "
+				+ "                    order by bn_no desc)) "
+				+ "where rnum between ? and ?";
 		
 		try {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, "%" + bnContent + "%");
+			pstmt.setInt(2, startRow);
+			pstmt.setInt(3, endRow);
+			
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {

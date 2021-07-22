@@ -121,7 +121,7 @@
                         <h3>Service</h3>
                         <ul>
                             <li><a href="#">고객센터</a></li>
-                            <li><a href="#">커뮤니티</a></li>
+                            <li><a href="/topp/bnlist?page=1">커뮤니티</a></li>
                             <li><a href="#">메뉴4</a></li>
                         </ul>
                     </div>

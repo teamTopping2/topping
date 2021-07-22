@@ -1,0 +1,61 @@
+@charset "UTF-8";
+
+div {
+	position: relative;
+}
+
+/* 서브메뉴 */
+
+div.submenu {
+	width: 150px;
+	position: absolute;
+	top: 200px;
+}
+
+div.submenu ul li {
+	list-style-type: none;
+	
+}
+
+div.submenu h5 a {
+	text-decoration: none;
+	width: 120px;
+	height: 30px;
+	display: block;
+	color: black;
+	text-align: center;
+	margin: 0;
+	padding-top: 5px;
+}
+
+h5 a:hover {
+	text-decoration: none;
+	width: 120px;
+	height: 30px;
+	display: block;
+	color: black;
+	text-align: center;
+	font-weight: bold;
+	margin: 0;
+	text-shadow: 1px 1px 2px gray;
+	padding-top: 5px;
+}
+
+/* 본문 */
+
+div.board {
+	width: 1000px;
+	left: 200px;
+}
+
+div.board h3, h6 {
+	text-align: center;
+}
+
+button {
+	align: right;
+}
+
+
+
+
