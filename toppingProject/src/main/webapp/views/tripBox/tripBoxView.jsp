@@ -14,7 +14,7 @@
 	font-family: 'score';
 	src: url(/topp/resources/fonts/SCDream4.otf);
 }
-
+t
 /* 폰트 적용 */
 * {
 	font-family: 'Noto Sans KR', 'score', 'sans-serif';

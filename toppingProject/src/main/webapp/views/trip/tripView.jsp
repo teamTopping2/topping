@@ -279,8 +279,14 @@ label {
 	top: auto;
 	bottom: 0;
 }
+
+.bi-pin-angle-fill {
+	color: red;
+}
 </style>
 
+<script type="text/javascript"
+	src="/topp/resources/js/jquery-3.6.0.min.js"></script>
 <script type="text/javascript">
 	
 	// 선택된 목록 가져오기
@@ -307,10 +313,14 @@ label {
 		
 	}
 	
-	//공백 방지
+	//검색어 공백, 한글 유효성 검사
 	function check() {
-
-		if (fr.searchTrip.value == "") {
+		var check_kor = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/;
+		var check_eng = /[a-zA-Z]/;
+		var check_num = /[0-9]/;
+		var check_spc = /[~!@#$%^&*()_+|<>?:{}]/;
+		
+		if (fr.searchTrip.value == "" ) {
 
 			alert("여행지를 입력해주세요!");
 
@@ -318,8 +328,22 @@ label {
 
 			return false;
 
-		} else
-			return true;
+		} 
+		
+		if( check_kor.test(fr.searchTrip.value) && !check_num.test(fr.searchTrip.value) && !check_eng.test(fr.searchTrip.value) && !check_spc.test(fr.searchTrip.value) ) { 
+			
+			return true; 
+		
+		} else { 
+			
+			alert("한글만 입력 가능합니다."); 
+			
+			fr.searchTrip.value = "";
+			
+			fr.searchTrip.focus();
+			
+			return false; 
+		}
 	}
 	
 	(function($){
@@ -335,6 +359,74 @@ label {
 		});
 
 	})(jQuery);
+    //<i class="bi bi-pin-angle-fill"></i>
+	var scList = [];
+    $(function() {
+    	var scrap = $('.btn_scrap');
+    	scrap.click(function() {
+			$(this).children().toggleClass('bi-pin-angle bi-pin-angle-fill');		
+			if(scList.includes($(this).attr("id")) == false){
+				scList.push($(this).attr("id"));
+			} else {
+				scList.splice(scList.indexOf($(this).attr("id")),1);
+			}
+			$('#scrap_count').text($('.bi-pin-angle-fill').length);
+  			alert(scList);
+    	});
+	});
+	
+    $(function() {
+
+        $("#scrap_check").on("click", function() {
+			//로그인 확인 후 X 로그인 화면 
+            $.ajax({
+					
+            	url: "/topp/scList",	
+            
+            	data: { "scList" : scList },                // HTTP 요청과 함께 서버로 보낼 데이터
+
+   				type: "GET",                             // HTTP 요청 방식(GET, POST)	
+            
+            })	
+            	
+            .done(function() {
+
+                console.log("요청 성공");
+
+            })
+
+            .fail(function() {
+
+            	console.log("요청 실패");
+
+            })
+
+            .always(function() {
+
+            	console.log("요청 완료");
+
+            });
+
+        });
+
+    });
+                
+/*               $.ajax({
+                  url: "/scList",
+                  type: "post",
+                  trnditional: true,
+                  data: {scList:scList},
+             
+                  success: function(data) {                   
+                      alert("성공");
+                	  console.log("성공" + data);
+                  },
+                  error:function(request,status,error){
+                      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
+                  }
+              });   
+        });// end .click()
+        }}; //end jQuery ready */      
 </script>
 
 </head>
@@ -345,7 +437,10 @@ label {
 	<div id="wrap">
 		<div class="search_header">
 			<!-- 여행정보 검색 -->
-			<h1 class="searchTitle">여행정보 검색</h1>
+			<h1 class="searchTitle">
+				여행정보 검색
+				<h6 style="color: red">*화면 비율 90%*</h6>
+			</h1>
 			<form action="/topp/tlist" method="post" name="fr"
 				onsubmit="return check()">
 				<!-- 여행 검색바 -->
@@ -358,10 +453,14 @@ label {
 						<i class="bi bi-search" style="font-size: 1.5rem"></i>
 					</button>
 				</div>
-				<h6 style="width: 500px; text-align: left; margin: 0 auto; margin-bottom: 30px; color: LightSkyBlue"><b>#강릉 &nbsp; #제주 &nbsp; #여수</b></h6>
+				<h6
+					style="width: 500px; text-align: left; margin: 0 auto; margin-bottom: 30px; color: LightSkyBlue">
+					<b>#강릉 &nbsp; #제주 &nbsp; #여수</b>
+				</h6>
 				<!-- 카테고리 체크박스 -->
 				<div class="searchChk">
-					<h5 style="display: inline-block; margin-right: 10px; margin-left: 20px;">상세검색</h5>
+					<h5
+						style="display: inline-block; margin-right: 10px; margin-left: 20px;">상세검색</h5>
 					<label><input type="checkbox" name="tripCate"
 							value="cate_01" checked="checked" onclick="getCheckboxValue()">관광지</label>
 					<label><input type="checkbox" name="tripCate"
@@ -377,7 +476,7 @@ label {
 		if (tlist != null) {
 		%>
 		<div class="searchView">
-			<!-- searchTitle -->
+			<!-- 왼쪽 & 오른쪽 제목 -->
 			<div class="searchbTitle">
 				<h4 style="text-align: center; margin-bottom: 35px;">
 					<b>SNS 검색목록</b>
@@ -390,7 +489,7 @@ label {
 			</div>
 			<!-- SNS 검색목록 -->
 			<div class="blog_main">
-				<!-- 부제목 -->
+				<!-- 블로그 리스트 출력 -->
 				<%
 				for (Trip s : slist) {
 				%>
@@ -408,7 +507,7 @@ label {
 								<div>
 									<%=s.getBlogName()%></div>
 							</div>
-							<button class="btn_scrap">
+							<button class="btn_scrap" id="<%=s.getBlogNo()%>">
 								<i class="bi bi-pin-angle"
 									style="font-size: 1.5rem; margin-left: 10px;"></i>
 							</button>
@@ -422,7 +521,7 @@ label {
 			<!-- 관광지 상세정보 목록 -->
 			<div class="trip_main">
 				<div class="trip_contents">
-					<!-- 부제목 -->
+					<!-- 관광 리스트 출력 -->
 					<%
 					for (Trip t : tlist) {
 					%>
@@ -438,7 +537,7 @@ label {
 									</div>
 									<div class="trip_content"><%=t.getTripContent()%></div>
 								</div>
-								<button class="btn_scrap">
+								<button class="btn_scrap" id="<%=t.getTripNo()%>">
 									<i class="bi bi-pin-angle"
 										style="font-size: 1.5rem; margin-left: 20px;"></i>
 								</button>
@@ -451,23 +550,24 @@ label {
 				</div>
 			</div>
 		</div>
+		<!-- 오른쪽 서브메뉴바 -->
 		<div id="quick_menu2" class="fixed">
 			<div class="quick_contents">
-				<div>
-					<a href="#Top" style="color: LightCoral;"> <i
-						class="bi bi-calendar-event"
-						style="font-size: 3rem; vertical-align: top; color: DimGray;"></i>0
+				<div style="width: 100px;">
+					<!-- 스크랩 확인용 캘린더 및 스크랩 개수 -->
+					<a id="scrap_check" href="/topp/views/scrap/scrapView.jsp"
+						style="color: LightCoral;"> <i class="bi bi-calendar-event"
+						style="font-size: 3rem; vertical-align: top; color: DimGray;"></i>
+						<span id="scrap_count"></span>
 					</a>
 				</div>
+				<!-- top 버튼 -->
 				<div class="btn_quick_top">
 					<a href="#Top"><i class="bi bi-caret-up"
 						style="font-size: 3rem; color: DimGray;"></i></a>
 				</div>
-
 			</div>
-			<!-- .quick_contents -->
 		</div>
-		<!-- #quick_menu2 -->
 		<%
 		} else {
 		%>
