@@ -1,26 +1,32 @@
-package scrap.controller;
+package trip.controller;
+
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import trip.model.service.TripService;
+import trip.model.vo.Trip;
+
 /**
- * Servlet implementation class ScrapServlet
+ * Servlet implementation class TripToScrap
  */
-@WebServlet("/scList")
-public class ScrapServlet extends HttpServlet {
+@WebServlet("/ttoscrap")
+public class TripToScrap extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ScrapServlet() {
+	public TripToScrap() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -32,21 +38,26 @@ public class ScrapServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String scList = request.getParameter("scstr");
+		//System.out.println(scList);
 		
-		String[] scList = request.getParameterValues("scList[]");
-		System.out.println("배열에 들어있는값 : " + Arrays.toString(scList));
-		
-		if (scList != null) {
-			for (int i = 0; i < scList.length; i++) {
-				System.out.println(" scList: " + scList[i]);
-			}
+		TripService service = new TripService();
 
-		} else {
-			System.out.println("scList is null");
+		ArrayList<Trip> tlist = service.selecttScrapList(scList);
+
+		RequestDispatcher view = null;
+		if (tlist.size() > 0) {
+			view = request.getRequestDispatcher("views/trip/scrapView.jsp");
+
+			request.setAttribute("tlist", tlist);
+			view.forward(request, response);
 		}
-
 	}
 
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub

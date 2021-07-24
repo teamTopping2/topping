@@ -12,6 +12,9 @@ ArrayList<Trip> slist = (ArrayList<Trip>) request.getAttribute("slist");
 <meta charset="UTF-8">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+	rel="stylesheet" type="text/css" />
+
 <title>trip</title>
 
 <style type="text/css">
@@ -283,6 +286,11 @@ label {
 .bi-pin-angle-fill {
 	color: red;
 }
+
+#scrap_check{
+	background-color: white;
+	border: 0;
+}
 </style>
 
 <script type="text/javascript"
@@ -361,6 +369,7 @@ label {
 	})(jQuery);
     //<i class="bi bi-pin-angle-fill"></i>
 	var scList = [];
+	var scstr = "";
     $(function() {
     	var scrap = $('.btn_scrap');
     	scrap.click(function() {
@@ -371,62 +380,26 @@ label {
 				scList.splice(scList.indexOf($(this).attr("id")),1);
 			}
 			$('#scrap_count').text($('.bi-pin-angle-fill').length);
-  			alert(scList);
+  			scstr = scList.join();
+  			
     	});
 	});
 	
     $(function() {
-
         $("#scrap_check").on("click", function() {
-			//로그인 확인 후 X 로그인 화면 
-            $.ajax({
-					
-            	url: "/topp/scList",	
-            
-            	data: { "scList" : scList },                // HTTP 요청과 함께 서버로 보낼 데이터
-
-   				type: "GET",                             // HTTP 요청 방식(GET, POST)	
-            
-            })	
-            	
-            .done(function() {
-
-                console.log("요청 성공");
-
-            })
-
-            .fail(function() {
-
-            	console.log("요청 실패");
-
-            })
-
-            .always(function() {
-
-            	console.log("요청 완료");
-
-            });
-
-        });
-
-    });
-                
-/*               $.ajax({
-                  url: "/scList",
-                  type: "post",
-                  trnditional: true,
-                  data: {scList:scList},
-             
-                  success: function(data) {                   
-                      alert("성공");
-                	  console.log("성공" + data);
-                  },
-                  error:function(request,status,error){
-                      alert("code:"+request.status+"\n"+"message:"+request.responseText+"\n"+"error:"+error);
-                  }
-              });   
-        });// end .click()
-        }}; //end jQuery ready */      
+        	
+        	if (confirm("스크랩 목록에 추가되었습니다!\n스크랩으로 이동하시겠습니까?")) {
+        		if(scstr != ""){
+        			location.href = "/topp/views/trip/scrapView.jsp?scList="+ scstr +"";
+        		} else {
+        			alert("스크랩 목록이 없습니다. 다시 확인해주세요");
+        			return;
+        		}
+        	} else {
+        		return;
+        	}
+    	});   
+	});   			
 </script>
 
 </head>
@@ -555,11 +528,11 @@ label {
 			<div class="quick_contents">
 				<div style="width: 100px;">
 					<!-- 스크랩 확인용 캘린더 및 스크랩 개수 -->
-					<a id="scrap_check" href="/topp/views/scrap/scrapView.jsp"
-						style="color: LightCoral;"> <i class="bi bi-calendar-event"
-						style="font-size: 3rem; vertical-align: top; color: DimGray;"></i>
+					<button id="scrap_check" style="color: LightCoral;">
+						<i class="bi bi-calendar-event"
+							style="font-size: 3rem; vertical-align: top; color: DimGray;"></i>
 						<span id="scrap_count"></span>
-					</a>
+					</button>
 				</div>
 				<!-- top 버튼 -->
 				<div class="btn_quick_top">

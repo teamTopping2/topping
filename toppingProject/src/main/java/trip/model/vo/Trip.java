@@ -1,7 +1,7 @@
 package trip.model.vo;
 
 public class Trip implements java.io.Serializable{
-	private static final long serialVersionUID = 113L;
+	private static final long serialVersionUID = 1L;
 	
 //	TRIP_NO
 //	TRIP_NAME
