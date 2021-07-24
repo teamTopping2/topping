@@ -1,10 +1,9 @@
-*/.metadata/*
+/.metadata/
 *.tree
 Servers/*
 chromedriver.exe
 *.csv
 */.idea/*
 firstWebProject/*
-/.metadata/
 *.sql
 *tern*
