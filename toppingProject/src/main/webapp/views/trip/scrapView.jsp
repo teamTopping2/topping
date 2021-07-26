@@ -12,6 +12,10 @@ ArrayList<Trip> tlist = (ArrayList<Trip>) request.getAttribute("tlist");
 <meta charset="UTF-8">
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+<script type="text/javascript"
+	src="/topp/resources/js/jquery-3.6.0.min.js"></script>
+<script type="text/javascript"
+	src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6ef4dba9226523d458a779235b1eea67"></script>
 <title>scrap</title>
 
 <style type="text/css">
@@ -67,7 +71,7 @@ ArrayList<Trip> tlist = (ArrayList<Trip>) request.getAttribute("tlist");
 	border: 1px solid grey;
 }
 
-.blog_list_total {
+.trip_list_total {
 	padding: 0;
 }
 
@@ -108,7 +112,7 @@ ArrayList<Trip> tlist = (ArrayList<Trip>) request.getAttribute("tlist");
 	padding-top: 10px;
 	padding-left: 15px;
 	padding-bottom: 10px;
-	border: solid 1px rgb(232, 235, 238);
+	border: solid 1px silver;
 	border-radius: 10px;
 	padding-bottom: 10px;
 	white-space: normal;
@@ -119,23 +123,56 @@ ArrayList<Trip> tlist = (ArrayList<Trip>) request.getAttribute("tlist");
 
 .plan_contents {
 	width: 1200px;
-	height: 800px;
+	height: 900px;
 	text-align: center;
 	margin-right: 0;
 	margin-top: 40px;
 	border: 2px solid black;
 	position: relative;
 }
-</style>
 
-<script type="text/javascript"
-	src="/topp/resources/js/jquery-3.6.0.min.js"></script>
+.scrap_contents {
+	width: 1100px;
+	height: 250px;
+	margin: 0 auto;
+}
+
+.scrap_content {
+	display: inline-block;
+	float: left;
+	margin-top: 20px;
+}
+
+.scrap_no2 {
+	width: 35px;
+	height: 35px;
+	float: left;
+	line-height: 35px;
+	margin-left: 20px;
+	border: 1px solid;
+	border-radius: 50%;
+}
+
+.scrap_name {
+	float: left;
+	margin-left: 20px;
+}
+
+.scrap_right {
+	width: 35px;
+	height: 35px;
+	float: left;
+	line-height: 35px;
+	margin-left: 20px;
+	margin-top: 20px;
+}
+</style>
 <script type="text/javascript">
 	var list =
 <%=tlist%>
+	;
 	$(function() {
 		if (list == null) {
-			/* $("#btn_scrapchk").on("click", function() {  */
 			//alert("리스트 없음")
 			const url = new URL(location.href);
 			//alert(url);
@@ -164,6 +201,7 @@ ArrayList<Trip> tlist = (ArrayList<Trip>) request.getAttribute("tlist");
 			document.body.appendChild(form);
 
 			form.submit();
+
 		} else {
 			alert("오류");
 		}
@@ -185,9 +223,22 @@ ArrayList<Trip> tlist = (ArrayList<Trip>) request.getAttribute("tlist");
 		} else {
 		%>
 		<div class="plan_title">
-			<h4>
-				<b>계획명 : 강릉 여행!</b>
-			</h4>
+			<h3 style="display: inline-block;">
+				<b>계획명 : </b>
+				<input id="input_name" onchange="change_name()"
+					placeholder="계획명을 입력해주세요!" onfocus="this.placeholder=''"
+					onblur="this.placeholder='  계획명을 입력해주세요!'" size="30"
+					style="border: 0; width: 400px; height: 33px;" />
+				<h3 id="plan_name" style="display: inline-block; margin-left: 20px;"><h3>
+			</h3>
+			<script>
+			function change_name()  {
+				  const name = document.getElementById('input_name').value;
+				  document.getElementById("plan_name").innerText = name;
+				  $('#input_name').hide();
+				  console.log($('#plan_name').text());
+				};
+			</script>
 		</div>
 		<div class="trip_map">
 			<!-- 계획명 -->
@@ -197,19 +248,24 @@ ArrayList<Trip> tlist = (ArrayList<Trip>) request.getAttribute("tlist");
 				int i = 1;
 				for (Trip t : tlist) {
 				%>
-				<ul class="blog_list_total">
+				<ul class="trip_list_total">
 					<li class="sbx">
 						<div class="trip_box">
-							<div class="scrap_no"><%= i %></div>
+							<div class="scrap_no">
+								<span class="no_color"><%=i%></span>
+							</div>
 							<a class="trip_thumbL" href="#" target="_blank"> <img
 								class="trip_thumb" src=<%=t.getTripThumb()%>>
 							</a>
 							<div class="trip_conbox">
 								<div class="trip_title">
-									<h5>
+									<h5 class="scrap_title">
 										<%=t.getTripName()%>
 									</h5>
 								</div>
+								<!-- 보이지 않는 곳에 좌표값 저장 -->
+								<span class="scrap_la" style="display: none"><%=t.getLatitude()%></span>
+								<span class="scrap_lo" style="display: none"><%=t.getLongitude()%></span>
 								<div class="trip_content"><%=t.getTripContent()%></div>
 							</div>
 						</div>
@@ -219,30 +275,140 @@ ArrayList<Trip> tlist = (ArrayList<Trip>) request.getAttribute("tlist");
 				i++;
 				}
 				%>
+				<script type="text/javascript">
+					var colors = [ "
+					Red", "Orange", "Green", "Blue",
+							"BlueViolet", "HotPink", "SlateGray" ];
+					var
+					nocolor=document.getElementsByClassName( "no_color");
+					for
+					(var i=j = 0; i
+				< nocolor.length; i++, j++) { if (j == 7) { j = 0; } ;
+				nocolor[i].style.color = colors[j]; };
+				</script>
 			</div>
 			<!-- 지도 -->
 			<div id="map"
 				style="width: 600px; height: 500px; border: 1px solid grey;"></div>
-			<script type="text/javascript"
-				src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6ef4dba9226523d458a779235b1eea67"></script>
 			<script>
-				var container = document.getElementById('map');
-				var options = {
-					center : new kakao.maps.LatLng(37.75182973893725,
-							128.87605390660724),
-					level : 8
-				};
+			var container = document.getElementById('map');
+			var options = {
+				center : new kakao.maps.LatLng($('.scrap_la').first().text(),
+						$('.scrap_lo').first().text()),//첫번째 리스트 좌표
+				level : 8
+			};
 
-				var map = new kakao.maps.Map(container, options);
-			</script>
+			var map = new kakao.maps.Map(container, options);
+			//마커 생성 반복문
+			//타이틀 주소 따로 리스트
+
+			var title = [];
+
+			//title에 이름 리스트로 추가
+			$('.scrap_title').each(function() {
+				title.push($(this).text().replace(/\t|\n/gm, ""));
+			});
+			console.log(title);
+			//좌표 추가 latlng: new kakao.maps.LatLng(33.450705, 126.570677)
+
+			var mapX = [];
+
+			var mapY = [];
+
+			$('.scrap_la').each(function() {
+				mapX.push(parseFloat($(this).text().replace(/\t|\n/gm, "")));
+			});
+
+			$('.scrap_lo').each(function() {
+				mapY.push(parseFloat($(this).text().replace(/\t|\n/gm, "")));
+			});
+
+			var latlng = [];
+
+			for (var i = 0; i < title.length; i++) {
+				var pos = new kakao.maps.LatLng(mapX[i], mapY[i]);
+				//console.log(pos) 확인용
+				latlng.push(pos);
+			};
+
+			// 마커 이미지의 이미지 주소입니다
+			var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png";
+
+			for (var i = 0; i < title.length; i++) {
+
+				// 마커 이미지의 이미지 크기 입니다
+				var imageSize = new kakao.maps.Size(24, 35);
+
+				// 마커 이미지를 생성합니다    
+				var markerImage = new kakao.maps.MarkerImage(imageSrc,
+						imageSize);
+
+				// 마커를 생성합니다
+				//console.log(latlng[i]); 마커 좌표 확인용
+				//console.log(title[i]);  마커 이름 확인용
+				var marker = new kakao.maps.Marker({
+					map : map, // 마커를 표시할 지도
+					position : latlng[i], // 마커를 표시할 위치
+					title : title[i], // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
+					image : markerImage
+				// 마커 이미지 
+				});
+			};
+		</script>
 		</div>
-
-
+		<!-- 계획 일정 표시 -->
 		<div class="plan_contents">
-			<h2 style="margin-top: 20px;">계획 일정</h2>
+			<h2 style="margin-top: 30px; margin-bottom: 30px;">계획 일정</h2>
+			<!-- 리스트 순서대로 나열 -->
+			<div class="scrap_contents">
+				<%
+				int k = 1;
+				for (Trip t : tlist) {
+				%>
+				<div class="scrap_content">
+					<div class="scrap_no2">
+						<span class="no_color2" style="color: white;"><h4><%=k%></h4></span>
+					</div>
+					<div class="scrap_name">
+						<h4><%=t.getTripName()%></h4>
+					</div>
+				</div>
+				<div class="scrap_right">
+					<h4>→</h4>
+				</div>
+				<%
+				k++;
+				}
+				%>
+			</div>
+			<div class="">
+				<h2>전체 거리</h2>
+			</div>
+			<script type="text/javascript">
+			var colors = [ "Red", "Orange", "Green", "Blue", "BlueViolet",
+					"HotPink", "SlateGray" ];
+			var scrap_no2 = document.getElementsByClassName("scrap_no2");
+			for (var i = j = 0; i < scrap_no2.length; i++, j++) {
+				if (j == 7) {
+					j = 0;
+				}
+				scrap_no2[i].style.color = colors[j];
+				scrap_no2[i].style.backgroundColor = colors[j];
+			};
+			$('.scrap_right').children().last().remove(); //마지막 -> 제거
 
-			<button type="button" class="btn btn-primary"
-				style="width: 130px; height: 45px; position: absolute; bottom: 30px; right: 43%;">저장</button>
+			$(function() {
+				$("#btn_save").on("click", function() {
+					if (confirm("트립박스에 저장하시겠습니까")) {
+						history.go(-1);
+					} else {
+						return;
+					}
+				});
+			});
+		</script>
+			<button type="button" id="btn_save" class="btn btn-primary"
+				style="width: 130px; height: 45px; position: absolute; bottom: 30px; right: 44%;">저장</button>
 		</div>
 		<%
 		}

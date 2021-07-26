@@ -86,7 +86,7 @@ label {
 	margin-right: 60px;
 	margin-top: 40px;
 	padding: 20px;
-	border-color: LightGrey;
+	border-color: silver;
 	border-style: double;
 }
 
@@ -207,7 +207,7 @@ label {
 	padding-top: 10px;
 	padding-left: 15px;
 	padding-bottom: 10px;
-	border: solid 1px rgb(232, 235, 238);
+	border: solid 1px silver;
 	border-radius: 10px;
 	padding-bottom: 10px;
 	white-space: normal;
@@ -224,14 +224,11 @@ label {
 	padding-left: 15px;
 	padding-bottom: 20px;
 	padding-right: 15px;
-	border: solid 1px rgb(232, 235, 238);
+	border: solid 1px silver;
 	border-radius: 10px;
 	white-space: normal;
 	overflow: hidden;
 	height: 145px;
-	border: solid 1px rgb(232, 235, 238);
-	display: flex;
-	padding-top: 15px;
 }
 
 .btn_scrap {
@@ -287,7 +284,7 @@ label {
 	color: red;
 }
 
-#scrap_check{
+#scrap_check {
 	background-color: white;
 	border: 0;
 }
@@ -388,7 +385,7 @@ label {
     $(function() {
         $("#scrap_check").on("click", function() {
         	
-        	if (confirm("스크랩 목록에 추가되었습니다!\n스크랩으로 이동하시겠습니까?")) {
+        	if (confirm("스크랩 목록으로 이동하시겠습니까?")) {
         		if(scstr != ""){
         			location.href = "/topp/views/trip/scrapView.jsp?scList="+ scstr +"";
         		} else {
@@ -482,7 +479,7 @@ label {
 							</div>
 							<button class="btn_scrap" id="<%=s.getBlogNo()%>">
 								<i class="bi bi-pin-angle"
-									style="font-size: 1.5rem; margin-left: 10px;"></i>
+									style="font-size: 1.5rem; margin-left: 10px; display: none;"></i>
 							</button>
 						</div>
 					</li>
@@ -550,22 +547,6 @@ label {
 		<%
 		}
 		%>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-		<br>
-
 	</div>
 	<footer>
 		<%@ include file="../../views/common/footer.jsp"%>

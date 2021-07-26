@@ -51,6 +51,10 @@ public class TripToScrap extends HttpServlet {
 
 			request.setAttribute("tlist", tlist);
 			view.forward(request, response);
+		} else {
+			view = request.getRequestDispatcher("views/common/error.jsp");
+			request.setAttribute("message", "스크랩 목록이 존재하지 않습니다.");
+			view.forward(request, response);
 		}
 	}
 

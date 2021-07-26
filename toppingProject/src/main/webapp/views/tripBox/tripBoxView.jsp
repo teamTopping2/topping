@@ -14,8 +14,8 @@
 	font-family: 'score';
 	src: url(/topp/resources/fonts/SCDream4.otf);
 }
-t
-/* 폰트 적용 */
+
+t /* 폰트 적용 */   
 * {
 	font-family: 'Noto Sans KR', 'score', 'sans-serif';
 }
@@ -73,14 +73,15 @@ t
 	margin-top: 50px;
 }
 
-.btn_delete {
+.btn-outline-secondary {
 	width: 100px;
 	height: 35px;
 	background-color: white;
 	border-color: Gainsboro;
+	float: left;
 }
 
-.btn_share {
+.btn-primary {
 	width: 100px;
 	height: 35px;
 	border: 0;
@@ -136,8 +137,10 @@ t
 					<h5 style="text-align: center;">보관함에 여행정보가 없습니다.</h5>
 					<div class="box_none"></div>
 					<div style="margin-top: 10px;">
-						<button class="btn_delete" onclick="btn_selectD">선택삭제</button>
-						<button class="btn_share" onclick="btn_share">공유하기</button>
+						<button type="button" class="btn btn-outline-secondary"
+							onclick="btn_selectD">선택삭제</button>
+						<button type="button" class="btn btn-primary" onclick="btn_share">공유하기</button>
+
 					</div>
 				</div>
 			</div>

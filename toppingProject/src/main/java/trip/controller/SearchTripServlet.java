@@ -56,6 +56,10 @@ public class SearchTripServlet extends HttpServlet {
 			request.setAttribute("tlist", tlist);
 			request.setAttribute("slist", slist);
 			view.forward(request, response);
+		} else {
+			view = request.getRequestDispatcher("views/common/error.jsp");
+			request.setAttribute("message", regName + "여행 목록이 없습니다.");
+			view.forward(request, response);
 		}
 
 	}
